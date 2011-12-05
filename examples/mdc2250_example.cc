@@ -28,6 +28,13 @@ int main(int argc, char **argv)
     myMDC.sendCommand("\r# C_?BA_?FF_?S_?C_# 200\r");
     myMDC.startContinuousReading();
 
+    // run motor
+    for (int ii=0; ii++; ii<600);
+    {
+        myMDC.multiMotorCmd(400,400);
+        boost::this_thread::sleep(boost::posix_time::milliseconds(100));
+    }
+
     while(1);
 
     myMDC.disconnect();

@@ -374,7 +374,9 @@ void MDC2250::setRuntimeQueryCallback(RuntimeQueryCallback callback) {
 }
 
 
-inline void MDC2250::clearBufferHistory() {
+/***** Command Methods *****/
+
+void MDC2250::clearBufferHistory() {
     sendCommand("# C\r");
 }
 
@@ -485,4 +487,3 @@ bool MDC2250::sendCommand(std::string cmd) {
     }
 }
 
-/***** Command Methods *****/
