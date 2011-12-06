@@ -45,25 +45,25 @@ include_directories(${PROJECT_SOURCE_DIR}/vendor)
 
 # Add default source files
 set(MDC2250_SRCS src/mdc2250.cc include/mdc2250/mdc2250.h include/mdc2250/mdc2250_types.h)
-set(ROBOTEQ_API_DIR ${PROJECT_SOURCE_DIR}/vendor/roboteq_api)
-IF(WIN32)
-  list(APPEND MDC2250_SRCS ${ROBOTEQ_API_DIR}/windows/RoboteqDevice.cpp)
-ELSE(WIN32)
-  list(APPEND MDC2250_SRCS ${ROBOTEQ_API_DIR}/linux/RoboteqDevice.cpp)
-ENDIF(WIN32)
+#set(ROBOTEQ_API_DIR ${PROJECT_SOURCE_DIR}/vendor/roboteq_api)
+#IF(WIN32)
+ # list(APPEND MDC2250_SRCS ${ROBOTEQ_API_DIR}/windows/RoboteqDevice.cpp)
+#ELSE(WIN32)
+#  list(APPEND MDC2250_SRCS ${ROBOTEQ_API_DIR}/linux/RoboteqDevice.cpp)
+#ENDIF(WIN32)
 
 # Add header files
 set(MDC2250_HEADERS ${PROJECT_SOURCE_DIR}/include/mdc2250/mdc2250_types.h)
 list(APPEND MDC2250_HEADERS ${PROJECT_SOURCE_DIR}/include/mdc2250/mdc2250.h)
-IF(WIN32)
-  set(ROBOTEQ_API_HEADERS ${ROBOTEQ_API_DIR}/windows/Constants.h
-                          ${ROBOTEQ_API_DIR}/windows/ErrorCodes.h
-                          ${ROBOTEQ_API_DIR}/windows/RoboteqDevice.h)
-ELSE(WIN32)
-  set(ROBOTEQ_API_HEADERS ${ROBOTEQ_API_DIR}/linux/Constants.h
-                          ${ROBOTEQ_API_DIR}/linux/ErrorCodes.h
-                          ${ROBOTEQ_API_DIR}/linux/RoboteqDevice.h)
-ENDIF(WIN32)
+#IF(WIN32)
+#  set(ROBOTEQ_API_HEADERS ${ROBOTEQ_API_DIR}/windows/Constants.h
+#                          ${ROBOTEQ_API_DIR}/windows/ErrorCodes.h
+#                          ${ROBOTEQ_API_DIR}/windows/RoboteqDevice.h)
+#ELSE(WIN32)
+#  set(ROBOTEQ_API_HEADERS ${ROBOTEQ_API_DIR}/linux/Constants.h
+#                          ${ROBOTEQ_API_DIR}/linux/ErrorCodes.h
+#                          ${ROBOTEQ_API_DIR}/linux/RoboteqDevice.h)
+#ENDIF(WIN32)
 
 ## Build the library
 

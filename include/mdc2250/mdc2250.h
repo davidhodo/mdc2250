@@ -10,11 +10,11 @@
  *
  * Copyright (c) 2011 William Woodall - David Hodo
  *
- * Permission is hereby granted, free of charge, to any person obtaining a 
- * copy of this software and associated documentation files (the "Software"), 
- * to deal in the Software without restriction, including without limitation 
- * the rights to use, copy, modify, merge, publish, distribute, sublicense, 
- * and/or sell copies of the Software, and to permit persons to whom the 
+ * Permission is hereby granted, free of charge, to any person obtaining a
+ * copy of this software and associated documentation files (the "Software"),
+ * to deal in the Software without restriction, including without limitation
+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the
  * Software is furnished to do so, subject to the following conditions:
  *
  * The above copyright notice and this permission notice shall be included in
@@ -24,17 +24,17 @@
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING 
- * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  *
  * \section DESCRIPTION
  *
- * This provides a cross platform interface for the Roboteq MDC2250 Motor 
+ * This provides a cross platform interface for the Roboteq MDC2250 Motor
  * Controller.
- * 
+ *
  * This library depends on CMake-2.4.6 or later: http://www.cmake.org/
- * 
+ *
  */
 
 #ifndef MDC2250_H
@@ -42,7 +42,7 @@
 
 // Standard Library Headers
 //#include <map>
-//#include <string>
+#include <string>
 //#include <sstream>
 
 // Serial interface library
@@ -52,8 +52,8 @@
 #include "boost/function.hpp"
 
 // Roboteq API Headers
-#include "roboteq_api/ErrorCodes.h"
-#include "roboteq_api/RoboteqDevice.h"
+//#include "roboteq_api/ErrorCodes.h"
+//#include "roboteq_api/RoboteqDevice.h"
 
 // Library Headers
 #include "mdc2250_types.h"
@@ -109,10 +109,10 @@ public:
 
   /*!
    * Connects to the MDC2250 motor controller given a serial port.
-   * 
+   *
    * \param port Defines which serial port to connect to in serial mode.
    * Examples: Linux - "/dev/ttyS0" Windows - "COM1"
-   * 
+   *
    * \throws ConnectionFailedException connection attempt failed.
    * \throws UnknownErrorCodeException unknown error code returned.
    */

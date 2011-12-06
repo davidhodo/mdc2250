@@ -89,9 +89,7 @@ bool MDC2250::connect(std::string port) {
         boost::this_thread::sleep(boost::posix_time::milliseconds(10));
         my_port.write("\r?TRN\r"); // request model number
 
-        //boost::this_thread::sleep(boost::posix_time::milliseconds(100));
         // wait for return from serial port
-        //std:: result = my_port.read_until('\r');
         std::string result = my_port.read(30);
         // see if I got a valid response
         // response should look like 'TRN=RCB500:HDC2450'
@@ -142,7 +140,7 @@ void MDC2250::setTelemetryString(std::string queries, long period) {
     sendCommand(cmd.str());
 }
 
-void MDC2250::readDataCallback(string readData) {
+void MDC2250::readDataCallback(std::string readData) {
     // split string on carriage returns '\r'
     std::vector< std::string > splitVec; // holds results
     boost::algorithm::split( splitVec, readData, boost::algorithm::is_any_of("\r"), boost::algorithm::token_compress_on );
@@ -201,9 +199,9 @@ void MDC2250::parsePacket(std::string packet) {
                     std::cout << "Incorrectly formed query response: " << packet << std::endl;
                     return;
                 }
-                istringstream ( splitVec[1] ) >> temp;
+                std::istringstream ( splitVec[1] ) >> temp;
                 curStatus.M1_amps=temp/10.0;
-                istringstream ( splitVec[2] ) >> temp;
+                std::istringstream ( splitVec[2] ) >> temp;
                 curStatus.M2_amps=temp/10.0;
                 break;
             case _MOTCMD:
@@ -211,8 +209,8 @@ void MDC2250::parsePacket(std::string packet) {
                     std::cout << "Incorrectly formed query response: " << packet << std::endl;
                     return;
                 }
-                istringstream ( splitVec[1] ) >> curStatus.M1_cmd;
-                istringstream ( splitVec[2] ) >> curStatus.M2_cmd;
+                std::istringstream ( splitVec[1] ) >> curStatus.M1_cmd;
+                std::istringstream ( splitVec[2] ) >> curStatus.M2_cmd;
                 break;
             case _MOTPWR:
                 std::cout << "Query not yet supported." << std::endl;
@@ -222,16 +220,16 @@ void MDC2250::parsePacket(std::string packet) {
                     std::cout << "Incorrectly formed query response: " << packet << std::endl;
                     return;
                 }
-                istringstream ( splitVec[1] ) >> curStatus.E1_rpm;
-                istringstream ( splitVec[2] ) >> curStatus.E2_rpm;
+                std::istringstream ( splitVec[1] ) >> curStatus.E1_rpm;
+                std::istringstream ( splitVec[2] ) >> curStatus.E2_rpm;
                 break;
             case _ABCNTR:
                 if (splitVec.size()<3) {
                     std::cout << "Incorrectly formed query response: " << packet << std::endl;
                     return;
                 }
-                istringstream ( splitVec[1] ) >> curStatus.E1_count;
-                istringstream ( splitVec[2] ) >> curStatus.E2_count;
+                std::istringstream ( splitVec[1] ) >> curStatus.E1_count;
+                std::istringstream ( splitVec[2] ) >> curStatus.E2_count;
                 break;
             case _BLCNTR:
                 std::cout << "Query not yet supported." << std::endl;
@@ -244,8 +242,8 @@ void MDC2250::parsePacket(std::string packet) {
                     std::cout << "Incorrectly formed query response: " << packet << std::endl;
                     return;
                 }
-                istringstream ( splitVec[1] ) >> curStatus.E1_rel_count;
-                istringstream ( splitVec[2] ) >> curStatus.E2_rel_count;
+                std::istringstream ( splitVec[1] ) >> curStatus.E1_rel_count;
+                std::istringstream ( splitVec[2] ) >> curStatus.E2_rel_count;
                 break;
             case _BLRCNTR:
                 std::cout << "Query not yet supported." << std::endl;
@@ -261,9 +259,9 @@ void MDC2250::parsePacket(std::string packet) {
                     std::cout << "Incorrectly formed query response: " << packet << std::endl;
                     return;
                 }
-                istringstream ( splitVec[1] ) >> temp;
+                std::istringstream ( splitVec[1] ) >> temp;
                 curStatus.B1_amps=temp/10.0;
-                istringstream ( splitVec[2] ) >> temp;
+                std::istringstream ( splitVec[2] ) >> temp;
                 curStatus.B2_amps=temp/10.0;
                 break;
             case _VOLTS:
@@ -271,11 +269,11 @@ void MDC2250::parsePacket(std::string packet) {
                     std::cout << "Incorrectly formed query response: " << packet << std::endl;
                     return;
                 }
-                istringstream ( splitVec[1] ) >> temp;
+                std::istringstream ( splitVec[1] ) >> temp;
                 curStatus.driverVoltage=temp/10.0;
-                istringstream ( splitVec[2] ) >> temp;
+                std::istringstream ( splitVec[2] ) >> temp;
                 curStatus.batVoltage=temp/10.0;
-                istringstream ( splitVec[3] ) >> curStatus.fiveVVoltage;
+                std::istringstream ( splitVec[3] ) >> curStatus.fiveVVoltage;
                 break;
             case _DIGIN:
                 std::cout << "Query not yet supported." << std::endl;
@@ -304,7 +302,7 @@ void MDC2250::parsePacket(std::string packet) {
                     return;
                 }
                 int flag;
-                istringstream ( splitVec[1] ) >> flag;
+                std::istringstream ( splitVec[1] ) >> flag;
                 // parse bits of fault flag
                 curStatus.overheat=(flag&0x01)>0;
                 curStatus.overvoltage=(flag&0x02)>0;

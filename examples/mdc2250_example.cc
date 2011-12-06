@@ -7,6 +7,10 @@ using namespace std;
 
 int main(int argc, char **argv)
 {
+    std::cout << "WARNING: This example moves the ATRV. \n Do you wish to continue (Y or N)?" << std::endl;
+    char reply;
+    std::cin >> reply;
+
     if(argc < 2) {
         std::cerr << "Usage: mdc2250_example <serial port address>" << std::endl;
         return 0;
@@ -28,11 +32,29 @@ int main(int argc, char **argv)
     myMDC.sendCommand("\r# C_?BA_?FF_?S_?C_# 200\r");
     myMDC.startContinuousReading();
 
-    // run motor
-    for (int ii=0; ii++; ii<600);
-    {
-        myMDC.multiMotorCmd(400,400);
-        boost::this_thread::sleep(boost::posix_time::milliseconds(100));
+    if (reply=='Y') {
+
+        // run motor
+        for (int ii=0; ii<20; ii++)
+        {
+            //std::cout << ii << std::endl;
+            myMDC.multiMotorCmd(400,400);
+            boost::this_thread::sleep(boost::posix_time::milliseconds(100));
+        }
+        for (int ii=0; ii<20; ii++)
+        {
+            //std::cout << ii << std::endl;
+            myMDC.multiMotorCmd(100,100);
+            boost::this_thread::sleep(boost::posix_time::milliseconds(100));
+        }
+        for (int ii=0; ii<20; ii++)
+        {
+            //std::cout << ii << std::endl;
+            myMDC.multiMotorCmd(400,400);
+            boost::this_thread::sleep(boost::posix_time::milliseconds(100));
+        }
+
+        myMDC.multiMotorCmd(0,0);
     }
 
     while(1);
