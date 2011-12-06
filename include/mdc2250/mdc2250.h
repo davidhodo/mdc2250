@@ -51,10 +51,6 @@
 // Boost Headers (system or from vender/*)
 #include "boost/function.hpp"
 
-// Roboteq API Headers
-//#include "roboteq_api/ErrorCodes.h"
-//#include "roboteq_api/RoboteqDevice.h"
-
 // Library Headers
 #include "mdc2250_types.h"
 
@@ -90,11 +86,10 @@ struct mdc2250_status {
     bool configFault;
 };
 
-
 /***** Function Typedefs *****/
 typedef boost::function<void(const std::exception&)> ExceptionCallback;
 typedef boost::function<void(mdc2250_status, RuntimeQuery::runtimeQuery)> RuntimeQueryCallback;
-
+typedef boost::function<void(long, long, configitem::ConfigItem)> ConfigCallback;
 
 /*!
  * Represents an MDC2250 Device and provides and interface to it.
@@ -180,13 +175,15 @@ private:
     //! data callback for handling serial data
     void readDataCallback(std::string readData);
     void parsePacket(std::string packet);
-    std::map<std::string, RuntimeQuery::runtimeQuery> parsingMap; //!< map used to parse query data
+    std::map<std::string, RuntimeQuery::runtimeQuery> queryMap; //!< map used to parse query data
+    std::map<std::string, configitem::ConfigItem> configMap; //!< map used to parse query data
     bool waitForAck(); //!< block until a command acknowledgement is received
     bool ackReceived; //!< true if command acknowledgement has been received
     // TODO: add mutex and condition variable for ackReceived
 
     mdc2250_status curStatus;
     RuntimeQueryCallback queryCallback;
+    ConfigCallback configCallback;
 };
 
 }

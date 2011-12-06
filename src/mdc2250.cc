@@ -5,6 +5,7 @@
 #include <boost/algorithm/string.hpp>
 using namespace mdc2250;
 using namespace RuntimeQuery;
+using namespace configitem;
 
 /***** Inline Functions *****/
 
@@ -14,12 +15,16 @@ inline void defaultExceptionCallback(const std::exception &error) {
   throw(error);
 }
 
-inline void defaultRuntimeQueryCallback(mdc2250_status status, RuntimeQuery::runtimeQuery queryType) {
-    std::cout << "Parsed data: " << queryType << std::endl;
+inline void defaultRuntimeQueryCallback(mdc2250_status status, runtimeQuery queryType) {
+    //std::cout << "Parsed runtime query: " << queryType << std::endl;
 }
 
-// Reverse enum map for parsing
-std::map<std::string, runtimeQuery> create_operating_names() {
+inline void defaultConfigCallback(long value1, long value2, ConfigItem configType) {
+    //std::cout << "Parsed config data: " << configType << std::endl;
+}
+
+// Reverse enum map for parsing query items
+std::map<std::string, runtimeQuery> create_query_names() {
   std::map<std::string, runtimeQuery> m;
   m["A"] = _MOTAMPS;
   m["M"] = _MOTCMD;
@@ -53,14 +58,24 @@ std::map<std::string, runtimeQuery> create_operating_names() {
   return m;
 }
 
+// Reverse enum map for parsing config items
+std::map<std::string, ConfigItem> create_config_names() {
+  std::map<std::string, ConfigItem> m;
+  m["MRPM"] = _MXRPM;
+  m["EPPR"] = _EPPR;
+  return m;
+}
+
 /***** MDC2250 Class Functions *****/
 
 MDC2250::MDC2250() {
     // Set default callback
     my_port.setReadCallback(boost::bind(&MDC2250::readDataCallback,this,_1));
     // create map for parsing queries
-    parsingMap=create_operating_names();
+    queryMap=create_query_names();
+    configMap=create_config_names();
     queryCallback=defaultRuntimeQueryCallback;
+    configCallback=defaultConfigCallback;
 }
 
 MDC2250::~MDC2250() {
@@ -161,6 +176,7 @@ void MDC2250::parsePacket(std::string packet) {
     // 4) ...
     //std::cout << "Parsing: " << packet << std::endl;
     runtimeQuery queryType;
+    ConfigItem configType;
     // see if this is an echo of a command or query request
     try {
         int result = packet.find_first_of("!?%~^#");
@@ -191,7 +207,8 @@ void MDC2250::parsePacket(std::string packet) {
 
 
         double temp;
-        queryType=parsingMap[splitVec[0]];
+        bool queryFound=true;
+        queryType=queryMap[splitVec[0]];
         // switch on the first
         switch (queryType) {
             case _MOTAMPS:
@@ -336,16 +353,45 @@ void MDC2250::parsePacket(std::string packet) {
                 break;
             default:
             std::cout << "Unrecognized query response: " << splitVec[0] << std::endl;
-                return;
+                queryFound=false;
                 break;
         }
+
+        if (queryFound) {
+            // call query callback
+            queryCallback(curStatus,queryType);
+            return;
+        }
+
+        // if it was not a query see if it was a config item
+        bool configFound=true;
+        long value1=-1;
+        long value2=-1;
+        configType=configMap[splitVec[0]];
+        switch (configType) {
+            case _EPPR:
+                if (splitVec.size()<3) {
+                    std::cout << "Incorrectly formed query response: " << packet << std::endl;
+                    return;
+                }
+                std::istringstream ( splitVec[1] ) >> value1;
+                std::istringstream ( splitVec[2] ) >> value2;
+                break;
+            default:
+                break;
+        }
+
+        if (configFound) {
+            configCallback(value1, value2, configType);
+            return;
+        }
+
     } catch (std::exception &e) {
         std::cout << "Error parsing packet: " << e.what() << std::endl;
         return;
     }
 
-    // call query callback
-    queryCallback(curStatus,queryType);
+
 }
 
 bool MDC2250::waitForAck() {
@@ -452,6 +498,19 @@ void MDC2250::setEncoderPPR(int channel, int ppr=100) {
 }
 
 long MDC2250::getEncoderPPR() {
+    // see if continuous read is on
+//    bool wasReading=my_port.isContinuouslyReading();
+//    if (wasReading)
+//        stopContinuousReading();
+
+//    // request encoder PPR
+//    sendCommand("\r~EPPR\r");
+//    // wait for response
+
+
+//    // restart continuous read if it was running
+//    if (wasReading)
+//        startContinuousReading();
     return 0;
 }
 

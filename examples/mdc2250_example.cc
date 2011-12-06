@@ -7,15 +7,15 @@ using namespace std;
 
 int main(int argc, char **argv)
 {
-    std::cout << "WARNING: This example moves the ATRV. \n Do you wish to continue (Y or N)?" << std::endl;
-    char reply;
-    std::cin >> reply;
-
     if(argc < 2) {
         std::cerr << "Usage: mdc2250_example <serial port address>" << std::endl;
         return 0;
     }
     std::string port(argv[1]);
+
+    std::cout << "WARNING: This example moves the ATRV. \n Do you wish to continue (Y or N)?" << std::endl;
+    char reply;
+    std::cin >> reply;
 
     MDC2250 myMDC;
     bool result = myMDC.connect(port);
@@ -27,6 +27,11 @@ int main(int argc, char **argv)
         cout << "Failed to connect." << endl;
         return -1;
     }
+
+    // set up encoder
+    myMDC.setEncoderPPR(1,500);
+    boost::this_thread::sleep(boost::posix_time::milliseconds(100));
+    myMDC.setEncoderPPR(2,500);
 
     // set up to read BA, FF, S, CR
     myMDC.sendCommand("\r# C_?BA_?FF_?S_?C_# 200\r");
@@ -55,6 +60,8 @@ int main(int argc, char **argv)
         }
 
         myMDC.multiMotorCmd(0,0);
+    } else {
+        std::cout << "Running without motion." << std::endl;
     }
 
     while(1);

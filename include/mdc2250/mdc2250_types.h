@@ -9,11 +9,11 @@
  *
  * Copyright (c) 2011 William Woodall
  *
- * Permission is hereby granted, free of charge, to any person obtaining a 
- * copy of this software and associated documentation files (the "Software"), 
- * to deal in the Software without restriction, including without limitation 
- * the rights to use, copy, modify, merge, publish, distribute, sublicense, 
- * and/or sell copies of the Software, and to permit persons to whom the 
+ * Permission is hereby granted, free of charge, to any person obtaining a
+ * copy of this software and associated documentation files (the "Software"),
+ * to deal in the Software without restriction, including without limitation
+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the
  * Software is furnished to do so, subject to the following conditions:
  *
  * The above copyright notice and this permission notice shall be included in
@@ -23,16 +23,16 @@
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING 
- * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  *
  * \section DESCRIPTION
  *
  * This provides data structures for the mdc2250 library.
- * 
+ *
  * This library depends on CMake-2.4.6 or later: http://www.cmake.org/
- * 
+ *
  */
 
 #ifndef MDC2250_TYPES_H
@@ -44,7 +44,7 @@ using namespace mdc2250;
 
 /*!
  * Defines the possible Configuration Items.
- * 
+ *
  * More information about these configurations can be found
  * in the Controller's User Manual.
  */
@@ -104,18 +104,18 @@ namespace configitem {
     _MDEC = 52,   /*!< Motor(s) Desired Deceleration */
     _MVEL = 53,   /*!< Motor(s) Default Position Velocity */
     _MXRPM = 54,  /*!< Motor RPM at 100% */
-    _MXTRN = 54,  /*!< Number of Motor Turns between Limits */
-    _CLERD = 55,  /*!< Close Loop Error Detection */
-    _BPOL = 56,   /*!< Number of Poles of BL Motor */
-    _BLSTD = 57,  /*!< BL Stall Detection */
-    _BLFB = 58,   /*!< Speed and Position sensor feedback */
-    _BHOME = 59,  /*!< Brushless Counter Load at Home Position */
-    _BLL = 60,    /*!< Encoder Low Limit */
-    _BHL = 61,    /*!< Encoder High Limit */
-    _BLLA = 62,   /*!< Encoder Low Limit Action */
-    _BHLA = 63,   /*!< Encoder High Limit Action */
-    _SXC = 64,    /*!< Sepex Curve Points */
-    _SXM = 65,    /*!< Minimum Field Current */
+    _MXTRN = 55,  /*!< Number of Motor Turns between Limits */
+    _CLERD = 56,  /*!< Close Loop Error Detection */
+    _BPOL = 57,   /*!< Number of Poles of BL Motor */
+    _BLSTD = 58,  /*!< BL Stall Detection */
+    _BLFB = 59,   /*!< Speed and Position sensor feedback */
+    _BHOME = 60,  /*!< Brushless Counter Load at Home Position */
+    _BLL = 61,    /*!< Encoder Low Limit */
+    _BHL = 62,    /*!< Encoder High Limit */
+    _BLLA = 63,   /*!< Encoder Low Limit Action */
+    _BHLA = 64,   /*!< Encoder High Limit Action */
+    _SXC = 65,    /*!< Sepex Curve Points */
+    _SXM = 66,    /*!< Minimum Field Current */
     _EMOD = 72,   /*!< Encoder Operating Mode */
     _EPPR = 73,   /*!< Encoder PPR */
     _ELL = 74,    /*!< Encoder Low Limit */
@@ -137,7 +137,7 @@ namespace configitem {
 //     std::make_pair(2, "b"),
 //     std::make_pair(3, "c")
 // };
-// 
+//
 // std::map<int, std::string> my_map(map_data,
 //     map_data + sizeof map_data / sizeof map_data[0]);
 
@@ -274,7 +274,7 @@ namespace configitem {
 namespace RuntimeQuery {
   /*!
    * Defines the possible Operating Items.
-   * 
+   *
    * More information about these operating items can be found
    * in the Controller's User Manual.
    */
