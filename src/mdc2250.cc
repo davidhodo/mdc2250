@@ -391,7 +391,6 @@ void MDC2250::parsePacket(std::string packet) {
         return;
     }
 
-
 }
 
 bool MDC2250::waitForAck() {
@@ -430,19 +429,19 @@ void MDC2250::sendQueryHistory(long period) {
     sendCommand(cmd.str());
 }
 
-inline void MDC2250::setAcceleration(int channel, int acceleration) {
+void MDC2250::setAcceleration(int channel, int acceleration) {
 
 }
 
-inline void MDC2250::getAcceleration(int channel, int acceleration) {
+void MDC2250::getAcceleration(int channel, int acceleration) {
 
 }
 
-inline void MDC2250::ESTOP() {
+void MDC2250::ESTOP() {
     sendCommand("!EX\r");
 }
 
-inline void MDC2250::ClearESTOP() {
+void MDC2250::ClearESTOP() {
     sendCommand("!MG\r");
 }
 
