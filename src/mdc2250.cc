@@ -543,3 +543,7 @@ bool MDC2250::sendCommand(std::string cmd) {
     }
 }
 
+void MDC2250::ClearEncoderCounts() {
+    sendCommand("\r!C 1 0_!C 2 0\r");
+
+}

@@ -58,6 +58,7 @@ namespace mdc2250 {
 
 //! Structure to represent the current status of the controller
 struct mdc2250_status {
+    int id; //!< motor controller ID - used to differentiate data with multiple controllers
     double M1_amps; //!< motor 1 current [amps]
     double M2_amps; //!< motor 2 current [amps]
     double B1_amps; //!< battery current 1 [amps]
@@ -166,6 +167,7 @@ public:
   long getEncoderPPR();
   void setMaxRPM(int channel, int mrpm);
   long getMaxRPM();
+  void ClearEncoderCounts();
 
   bool sendCommand(std::string cmd);
 
