@@ -11,7 +11,7 @@ IF(EXISTS /usr/bin/clang)
 ENDIF(EXISTS /usr/bin/clang)
 
 option(MDC2250_BUILD_TESTS "Build all of the mdc2250 tests." OFF)
-option(MDC2250_BUILD_EXAMPLES "Build all of the mdc2250 examples." ON)
+option(MDC2250_BUILD_EXAMPLES "Build all of the mdc2250 examples." OFF)
 
 # Allow for building shared libs override
 IF(NOT BUILD_SHARED_LIBS)
