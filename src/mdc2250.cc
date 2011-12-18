@@ -187,7 +187,7 @@ void MDC2250::parsePacket(std::string packet) {
         }
 
         // check for command ack/nack
-        if (packet.find_first_of("+-")!=std::string::npos) {
+        if (packet.find_first_of("+-")==0) {
             // ack or nack - process
             if (packet.find("+"))
                 std::cout << "Command acknowledged." << std::endl;
