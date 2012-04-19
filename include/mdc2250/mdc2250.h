@@ -46,7 +46,7 @@
 //#include <sstream>
 
 // Serial interface library
-#include <serial.h>
+#include <serial/serial.h>
 
 // Boost Headers (system or from vender/*)
 #include "boost/function.hpp"
